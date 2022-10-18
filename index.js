@@ -9,6 +9,9 @@ const app = express();
 // allows for json support
 app.use(express.json());
 
+// enables cors
+app.use(express.cors());
+
 // defines a new outfit GET endpoint
 app.get("/outfit", (req, res) => {
   const tops = ["Black", "White", "Orange", "Navy"];
