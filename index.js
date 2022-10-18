@@ -39,7 +39,9 @@ app.post("/comments", async (req, res) => {
   await fs.writeFile(`data/comments/${id}.txt`, content);
 
   // 201: object successfully created
-  res.sendStatus(201);
+  res.status(201).json({
+    id: id,
+  });
 });
 
 app.listen(3000, () => console.log("API Server is running..."));
