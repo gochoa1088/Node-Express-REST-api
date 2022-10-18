@@ -33,7 +33,10 @@ app.post("/comments", async (req, res) => {
     return res.sendStatus(400);
   }
 
+  // makes a comments directory
   await fs.mkdir("data/comments", { recursive: true });
+  // makes a comment file with content
+  await fs.writeFile(`data/comments/${id}.txt`, content);
 
   // 201: object successfully created
   res.sendStatus(201);
