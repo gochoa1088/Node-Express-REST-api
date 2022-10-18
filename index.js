@@ -24,7 +24,7 @@ app.get("/outfit", (req, res) => {
 });
 
 // defines a new POST endpoint
-app.post("/comments", (req, res) => {
+app.post("/comments", async (req, res) => {
   const id = uuid();
   const content = req.body.content;
 
@@ -32,6 +32,8 @@ app.post("/comments", (req, res) => {
     // 400: Not found, bad request
     return res.sendStatus(400);
   }
+
+  await fs.mkdir("data/comments", { recursive: true });
 
   // 201: object successfully created
   res.sendStatus(201);
