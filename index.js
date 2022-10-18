@@ -9,7 +9,7 @@ const app = express();
 // allows for json support
 app.use(express.json());
 
-// defines a new GET endpoint
+// defines a new outfit GET endpoint
 app.get("/outfit", (req, res) => {
   const tops = ["Black", "White", "Orange", "Navy"];
   const jeans = ["Grey", "Dark Grey", "Black", "Navy"];
@@ -23,13 +23,30 @@ app.get("/outfit", (req, res) => {
   });
 });
 
+//defines a GET endpoint by id
+app.get("/comments/:id", async (req, res) => {
+  const id = req.params.id;
+  let content;
+
+  try {
+    content = await fs.readFile(`data/comments/${id}.txt`, "utf-8");
+  } catch (err) {
+    // 404: Not found
+    return res.sendStatus(404);
+  }
+
+  res.json({
+    content: content,
+  });
+});
+
 // defines a new POST endpoint
 app.post("/comments", async (req, res) => {
   const id = uuid();
   const content = req.body.content;
 
   if (!content) {
-    // 400: Not found, bad request
+    // 400: Bad request
     return res.sendStatus(400);
   }
 
